@@ -1,8 +1,10 @@
 package com.android.rebtelflags.di
 
+import androidx.room.Room
 import com.android.rebtelflags.data.CountryRepository
-import com.android.rebtelflags.data.network.CountriesApiService
-import com.android.rebtelflags.data.network.APIServiceGenerator
+import com.android.rebtelflags.data.local.AppDatabase
+import com.android.rebtelflags.data.remote.CountriesApiService
+import com.android.rebtelflags.data.remote.APIServiceGenerator
 import com.android.rebtelflags.flaglist.FlagListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -17,9 +19,17 @@ val networkModule = module {
     single { countriesApiService }
 }
 
+val databaseModule = module {
+    single {
+        Room.databaseBuilder(get(), AppDatabase::class.java, AppDatabase.DATABASE_NAME)
+            .build()
+    }
+    single { get<AppDatabase>().countryDao() }
+}
+
 val repositoryModule = module {
     single {
-        CountryRepository(get())
+        CountryRepository(get(), get())
     }
 }
 

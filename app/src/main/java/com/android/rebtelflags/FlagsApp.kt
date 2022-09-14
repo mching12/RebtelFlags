@@ -1,6 +1,7 @@
 package com.android.rebtelflags
 
 import android.app.Application
+import com.android.rebtelflags.di.databaseModule
 import com.android.rebtelflags.di.repositoryModule
 import com.android.rebtelflags.di.viewModelModule
 import com.android.rebtelflags.di.networkModule
@@ -15,7 +16,7 @@ class FlagsApp: Application() {
         startKoin {
             androidLogger()
             androidContext(this@FlagsApp)
-            modules(listOf(repositoryModule, networkModule, viewModelModule))
+            modules(listOf(repositoryModule, networkModule, viewModelModule, databaseModule))
         }
     }
 }

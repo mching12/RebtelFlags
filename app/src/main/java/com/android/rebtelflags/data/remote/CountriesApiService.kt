@@ -1,6 +1,6 @@
-package com.android.rebtelflags.data.network
+package com.android.rebtelflags.data.remote
 
-import com.android.rebtelflags.data.network.model.Country
+import com.android.rebtelflags.data.model.Country
 import retrofit2.Response
 import retrofit2.http.GET
 

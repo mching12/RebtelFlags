@@ -1,6 +1,6 @@
 package com.android.rebtelflags.flaglist
 
-import com.android.rebtelflags.data.network.model.Country
+import com.android.rebtelflags.data.model.Country
 
 sealed class FlagListViewState {
     object Empty: FlagListViewState()

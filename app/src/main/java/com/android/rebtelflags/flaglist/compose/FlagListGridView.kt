@@ -17,7 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.android.rebtelflags.R
-import com.android.rebtelflags.data.network.model.Country
+import com.android.rebtelflags.data.model.Country
 import com.android.rebtelflags.util.ext.toast
 import com.skydoves.landscapist.glide.GlideImage
 

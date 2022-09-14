@@ -1,4 +1,4 @@
-package com.android.rebtelflags.data.network
+package com.android.rebtelflags.data.remote
 
 import com.android.rebtelflags.BuildConfig
 import okhttp3.OkHttpClient

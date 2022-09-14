@@ -1,4 +1,4 @@
-package com.android.rebtelflags.data.network.model
+package com.android.rebtelflags.data.model
 
 import com.google.gson.annotations.Expose
 
