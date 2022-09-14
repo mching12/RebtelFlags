@@ -1,7 +1,6 @@
 package com.android.rebtelflags.flaglist.compose
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
@@ -18,13 +17,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.android.rebtelflags.R
-import com.android.rebtelflags.ui.model.GridItem
+import com.android.rebtelflags.data.network.model.Country
+import com.android.rebtelflags.util.ext.toast
 import com.skydoves.landscapist.glide.GlideImage
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun gridView(context: Context,
-             flagList: List<GridItem>
+             flagList: List<Country>
 ) {
     LazyVerticalGrid(
         cells = GridCells.Fixed(3),
@@ -32,12 +32,8 @@ fun gridView(context: Context,
     ) {
         items(flagList.size) {
             Card(onClick = {
-                Toast.makeText(context,
-                    flagList[it].label + " selected..",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    context.toast(flagList[it].name?.common + " selected!")
                 },
-
                 modifier = Modifier.padding(8.dp),
                 elevation = 6.dp
             ) {
@@ -49,7 +45,7 @@ fun gridView(context: Context,
                     verticalArrangement = Arrangement.Center
                 ) {
                     GlideImage(
-                        imageModel = flagList[it].imgUrl,
+                        imageModel = flagList[it].flags.png,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .height(60.dp)
@@ -61,7 +57,7 @@ fun gridView(context: Context,
 
                     Spacer(modifier = Modifier.height(9.dp))
 
-                    Text(text = flagList[it].label,
+                    Text(text = flagList[it].name?.common ?: "",
                         modifier = Modifier.padding(4.dp),
                         color = Color.Black
                     )

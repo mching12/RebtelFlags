@@ -18,6 +18,9 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+
+        //  API base
+        buildConfigField("String", "BASE_REST_COUNTRIES", '"https://restcountries.com/v3.1/"')
     }
 
     buildTypes {

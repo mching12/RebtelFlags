@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">RebtelFlags</string>
     <string name="home_screen_title">Fun with flags</string>
+    <string name="error_generic">Oops.. something went wrong</string>
+    <string name="message_country_selected">%s selected!</string>
 </resources>

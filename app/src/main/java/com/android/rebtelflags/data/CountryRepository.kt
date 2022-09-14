@@ -1,8 +1,15 @@
 package com.android.rebtelflags.data
 
+import com.android.rebtelflags.data.network.CountriesApiService
+import com.android.rebtelflags.data.network.model.Country
 import com.android.rebtelflags.ui.model.GridItem
+import retrofit2.Response
 
-class FlagRepository {
+class CountryRepository (
+    private val countriesApiService: CountriesApiService
+) {
+    suspend fun fetchFlags(): Response<List<Country>> =
+        countriesApiService.getAllCountries()
 
     fun getFlags() = listOf(
         GridItem("Anderson", "https://countryflagsapi.com/png/ad"),

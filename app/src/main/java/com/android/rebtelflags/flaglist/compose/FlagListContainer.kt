@@ -16,6 +16,7 @@ import com.android.rebtelflags.R
 import com.android.rebtelflags.flaglist.FlagListViewModel
 import com.android.rebtelflags.flaglist.FlagListViewState
 import com.android.rebtelflags.ui.theme.greenColor
+import com.android.rebtelflags.util.ext.toast
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
@@ -47,12 +48,16 @@ fun flagListContainer(
             ) {
                 //  handle UI states here
                 when (val state = viewModel.uiState.observeAsState().value) {
-                    is FlagListViewState.Empty -> {}
+                    is FlagListViewState.Empty -> {
+                        Log.d("testqwerty", "UI on empty")
+                    }
                     is FlagListViewState.Loaded -> {
                         Log.d("testqwerty", "UI Loaded size: ${state.data.size}")
                         gridView(context = LocalContext.current, flagList = state.data)
                     }
-                    is FlagListViewState.Error -> {}
+                    is FlagListViewState.Error ->
+                        context.toast(state.message ?: stringResource(R.string.error_generic))
+
                     FlagListViewState.Loading -> {
                         Log.d("testqwerty", "UI loading")
                     }
