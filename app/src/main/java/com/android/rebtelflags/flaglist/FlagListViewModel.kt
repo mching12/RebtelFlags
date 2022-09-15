@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.rebtelflags.data.CountryRepository
+import com.android.rebtelflags.data.model.Result
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 
 class FlagListViewModel (
     private val countryRepository: CountryRepository
@@ -14,13 +16,6 @@ class FlagListViewModel (
 
     private var _uiState = MutableLiveData<FlagListViewState>(FlagListViewState.Empty)
     var uiState: LiveData<FlagListViewState> = _uiState
-
-    private var job: Job? = null
-
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
-    }
 
     init {
         fetchFlags()
@@ -30,37 +25,20 @@ class FlagListViewModel (
         _uiState.value = FlagListViewState.Error(error)
     }
 
-    fun fetchLocalFlags() {
-        Log.d("testqwerty", "fetching flags...")
-        _uiState.value = FlagListViewState.Loading
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val data = countryRepository.fetchLocalFlags()
-            withContext(Dispatchers.Main) {
-                try {
-                    _uiState.value =
-                        if (data.isEmpty()) FlagListViewState.Empty
-                        else FlagListViewState.Loaded(data)
-                } catch (ex: Exception) {
-                    onErrorOccurred(ex.localizedMessage)
-                }
-            }
-        }
-    }
-
     fun fetchFlags() {
         Log.d("testqwerty", "fetching flags...")
         _uiState.value = FlagListViewState.Loading
-        job = CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.Main) {
-                try {
-                    val response = countryRepository.fetchFlags()
-                    if (response.isSuccessful) {
+        viewModelScope.launch {
+            countryRepository.fetchCountries().collect() {
+                when (it.status) {
+                    Result.Status.SUCCESS -> {
                         _uiState.value =
-                            if (response.body()?.isEmpty() == true) FlagListViewState.Empty
-                            else FlagListViewState.Loaded(response.body() ?: listOf())
-                    } else onErrorOccurred(response.message())
-                } catch (ex: Exception) {
-                    onErrorOccurred(ex.localizedMessage)
+                            if (it.data?.isNotEmpty() == true)
+                                FlagListViewState.Loaded(it.data)
+                            else FlagListViewState.Empty
+                    }
+                    Result.Status.ERROR -> onErrorOccurred(it.message)
+                    else -> {}
                 }
             }
         }

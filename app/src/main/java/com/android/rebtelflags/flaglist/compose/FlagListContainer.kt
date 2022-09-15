@@ -44,18 +44,22 @@ fun flagListContainer(
         ) {
             SwipeRefresh(
                 state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.observeAsState().value is FlagListViewState.Loading),
-                onRefresh = { viewModel.fetchLocalFlags()}
+                onRefresh = { viewModel.fetchFlags()}
             ) {
                 //  handle UI states here
                 when (val state = viewModel.uiState.observeAsState().value) {
-                    is FlagListViewState.Empty ->
+                    is FlagListViewState.Empty -> {
+                        Log.d("testqwerty", "UI Empty")
                         context.toast(stringResource(R.string.message_empty_data))
+                    }
                     is FlagListViewState.Loaded -> {
                         Log.d("testqwerty", "UI Loaded size: ${state.data.size}")
                         gridView(context = LocalContext.current, flagList = state.data)
                     }
-                    is FlagListViewState.Error ->
+                    is FlagListViewState.Error -> {
+                        Log.d("testqwerty", "UI Error: ${state.message}")
                         context.toast(state.message ?: stringResource(R.string.error_generic))
+                    }
                     FlagListViewState.Loading -> {
                         Log.d("testqwerty", "UI loading")
                     }

@@ -3,9 +3,12 @@ package com.android.rebtelflags.di
 import androidx.room.Room
 import com.android.rebtelflags.data.CountryRepository
 import com.android.rebtelflags.data.local.AppDatabase
+import com.android.rebtelflags.data.local.CountryLocalDataSource
 import com.android.rebtelflags.data.remote.CountriesApiService
 import com.android.rebtelflags.data.remote.APIServiceGenerator
+import com.android.rebtelflags.data.remote.CountryRemoteDataSource
 import com.android.rebtelflags.flaglist.FlagListViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -17,6 +20,7 @@ val viewModelModule = module {
 
 val networkModule = module {
     single { countriesApiService }
+    single { CountryRemoteDataSource(get()) }
 }
 
 val databaseModule = module {
@@ -25,11 +29,12 @@ val databaseModule = module {
             .build()
     }
     single { get<AppDatabase>().countryDao() }
+    single { CountryLocalDataSource(get()) }
 }
 
 val repositoryModule = module {
     single {
-        CountryRepository(get(), get())
+        CountryRepository(get(), get(), androidContext())
     }
 }
 

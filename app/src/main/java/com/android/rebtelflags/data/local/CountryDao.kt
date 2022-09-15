@@ -7,17 +7,11 @@ import com.android.rebtelflags.data.model.Country
 interface CountryDao {
 
     @Query("Select * FROM countries")
-    fun fetchAllCountries(): List<Country>
+    fun getCountries(): List<Country>
 
     @Query("DELETE FROM countries")
     suspend fun deleteAllCountries()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCountries(countryList: List<Country>)
-
-    @Transaction
-    suspend fun replaceAllCountries(countries: List<Country>) {
-        deleteAllCountries()
-        insertCountries(countries)
-    }
+    suspend fun saveCountries(countryList: List<Country>)
 }

@@ -36,7 +36,7 @@ class APIServiceGenerator(host: String = BuildConfig.BASE_REST_COUNTRIES) {
 
     companion object {
         //  in seconds
-        const val REQUEST_TIMEOUT = 15L
+        const val REQUEST_TIMEOUT = 10L
     }
 
     fun <T> createService(service: Class<T>): T {
