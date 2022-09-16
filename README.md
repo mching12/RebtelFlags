@@ -28,7 +28,7 @@ It also took a bit more time than expected to learn Compose (hence the very basi
 What could be improved
 -------------------------
 * UI / UX
-* Test coverage
+* Additional test coverage
 * Git workflow (for PRs and merges)
 
 Libraries / concepts used
