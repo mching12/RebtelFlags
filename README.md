@@ -16,12 +16,14 @@ This way, if ever there is a change/update, I wouldn't need to release an app-st
 It'll work dynamically. Also Glide uses disk-caching which is resource efficient. 
 (I understand that countries don't frequently update their flags, It's just purely hypthetical).
 
+I've also added unit test coverage for important functions of the ViewModel and Repository class logic.
+
 Issues / Challenges
 -------------------------
 Time was a bit tight on this one. I was only able to work on this during evenings or weekends.
 I also promised to implement this using Coroutines and Jetpack Compose. 
 Given the situation, my focus was getting the basic features done first then extras could follow. 
-It also took a bit more time than expected to learn Compose (hence the very basic UI).
+It also took a bit more time than expected to learn Compose (hence the very basic UI) and some complications in unit testing with Flow.
 
 What could be improved
 -------------------------
@@ -41,3 +43,4 @@ Libraries / concepts used
 * Room - for local database
 * SwipeRefresh (accompanist) - for pull to refresh list goodness
 * Glide (landscapist) - for image loading
+* Mockk - for Mocking (unit testing)
