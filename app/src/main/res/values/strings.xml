@@ -4,4 +4,14 @@
     <string name="error_generic">Oops.. something went wrong</string>
     <string name="message_country_selected">%s selected!</string>
     <string name="message_empty_data">No countries available</string>
+    <string name="title_activity_country_details">CountryDetailsActivity</string>
+    <string name="label_name">Common name:</string>
+    <string name="label_cca2">CCA2:</string>
+    <string name="label_cca3">CCA3:</string>
+    <string name="label_ccn3">CCN3:</string>
+    <string name="label_ccioc">CIOC:</string>
+    <string name="label_independent">Is Independent?</string>
+    <string name="label_unMember">Is member of UN?</string>
+    <string name="label_region">Region:</string>
+    <string name="label_sub_region">Sub-Region:</string>
 </resources>

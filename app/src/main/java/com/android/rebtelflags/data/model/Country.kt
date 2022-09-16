@@ -1,11 +1,14 @@
 package com.android.rebtelflags.data.model
 
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import com.google.gson.annotations.Expose
 
+@Parcelize
 @Entity(tableName = "countries")
 data class Country (
 
@@ -40,5 +43,13 @@ data class Country (
 
     @ColumnInfo(name = "flags")
     @Expose
-    var flags: Flag
-)
+    var flags: Flag,
+
+    @ColumnInfo(name = "region")
+    @Expose
+    var region: String?,
+
+    @ColumnInfo(name = "subregion")
+    @Expose
+    var subregion: String?
+): Parcelable

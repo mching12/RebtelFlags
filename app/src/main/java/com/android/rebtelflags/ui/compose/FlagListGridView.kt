@@ -1,4 +1,4 @@
-package com.android.rebtelflags.flaglist.compose
+package com.android.rebtelflags.ui.compose
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -12,14 +12,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.unit.dp
 import com.android.rebtelflags.R
+import com.android.rebtelflags.countrydetails.CountryDetailsActivity
 import com.android.rebtelflags.data.model.Country
-import com.android.rebtelflags.util.ext.toast
-import com.skydoves.landscapist.glide.GlideImage
+
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
@@ -32,7 +30,7 @@ fun gridView(context: Context,
     ) {
         items(flagList.size) {
             Card(onClick = {
-                    context.toast(flagList[it].name?.common + " selected!")
+                    CountryDetailsActivity.launch(context, flagList[it])
                 },
                 modifier = Modifier.padding(8.dp),
                 elevation = 6.dp
@@ -44,15 +42,13 @@ fun gridView(context: Context,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    GlideImage(
-                        imageModel = flagList[it].flags.png,
+                    flagPhoto(country = flagList[it],
+                        placeholderImg = R.drawable.img_placeholder,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
                             .height(60.dp)
                             .width(60.dp)
-                            .padding(5.dp),
-                        placeHolder = ImageBitmap.imageResource(R.drawable.img_placeholder),
-                        error = ImageBitmap.imageResource(R.drawable.img_placeholder)
+                            .padding(5.dp)
                     )
 
                     Spacer(modifier = Modifier.height(9.dp))

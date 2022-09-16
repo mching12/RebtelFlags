@@ -1,6 +1,5 @@
 package com.android.rebtelflags.flaglist
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,7 +25,6 @@ class FlagListViewModel (
     }
 
     fun fetchFlags() {
-        Log.d("testqwerty", "fetching flags...")
         _uiState.value = FlagListViewState.Loading
         viewModelScope.launch {
             countryRepository.fetchCountries().collect() {

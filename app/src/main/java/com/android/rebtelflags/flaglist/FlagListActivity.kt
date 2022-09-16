@@ -3,7 +3,7 @@ package com.android.rebtelflags.flaglist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.android.rebtelflags.flaglist.compose.flagListContainer
+import com.android.rebtelflags.ui.compose.flagListContainer
 import com.android.rebtelflags.ui.theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
