@@ -8,6 +8,7 @@ import com.android.rebtelflags.data.remote.CountriesApiService
 import com.android.rebtelflags.data.remote.APIServiceGenerator
 import com.android.rebtelflags.data.remote.CountryRemoteDataSource
 import com.android.rebtelflags.flaglist.FlagListViewModel
+import com.android.rebtelflags.util.helper.ConnectivityHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -34,7 +35,10 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single {
-        CountryRepository(get(), get(), androidContext())
+        ConnectivityHelper(androidContext())
+    }
+    single {
+        CountryRepository(get(), get(), get())
     }
 }
 

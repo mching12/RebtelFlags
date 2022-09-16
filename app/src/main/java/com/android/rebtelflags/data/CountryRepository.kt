@@ -1,6 +1,5 @@
 package com.android.rebtelflags.data
 
-import android.content.Context
 import com.android.rebtelflags.data.local.CountryLocalDataSource
 import com.android.rebtelflags.data.model.Country
 import com.android.rebtelflags.data.model.Result
@@ -14,11 +13,11 @@ import kotlinx.coroutines.flow.flowOn
 class CountryRepository (
     private val local: CountryLocalDataSource,
     private val remote: CountryRemoteDataSource,
-    private val context: Context
+    private val connectivityHelper: ConnectivityHelper
 ) {
     suspend fun fetchCountries(): Flow<Result<List<Country>>> =
         flow {
-            if(ConnectivityHelper.isConnectedToNetwork(context))
+            if(connectivityHelper.isConnectedToNetwork())
                 emit(remote.fetchAllCountries()
                     .also {
                         if(it.status == Result.Status.SUCCESS) {
