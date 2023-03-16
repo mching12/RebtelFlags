@@ -10,7 +10,6 @@ import com.android.rebtelflags.flaglist.FlagListViewState
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.flow
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,25 +35,27 @@ class FlagListViewModelTest {
 
     @Test
     fun `Should expose loading when fetch is started`() {
-        underTest.uiState.observeForever {}
-        underTest.fetchFlags()
-        underTest.uiState.value.run {
-            assert(this != null)
-            assert(this is FlagListViewState.Loading)
+        underTest.run {
+            uiState.observeForever {}
+            fetchFlags()
+            uiState.value.run {
+                assert(this != null)
+                assert(this is FlagListViewState.Loading)
+            }
         }
     }
 
     @Test
     fun `Should expose Empty when fetched data is empty`() {
         //  mocks return of Status.Success, but empty data list
-        coEvery { countryRepository.fetchCountries() } returns flow {
-            emit(getResultData(Result.Status.SUCCESS))
-        }
-        underTest.uiState.observeForever {}
-        underTest.fetchFlags()
-        underTest.uiState.value.run {
-            assert(this != null)
-            assert(this is FlagListViewState.Empty)
+        coEvery { countryRepository.fetchCountries() } returns getResultData(Result.Status.SUCCESS)
+        underTest.run {
+            uiState.observeForever {}
+            fetchFlags()
+            uiState.value.run {
+                assert(this != null)
+                assert(this is FlagListViewState.Empty)
+            }
         }
     }
 
@@ -62,14 +63,14 @@ class FlagListViewModelTest {
     fun `Should expose Error and errorMessage when fetching encounters an issue`() {
         //  mocks return of Status.Success, but empty data list
         val errorMessage = "Error...."
-        coEvery { countryRepository.fetchCountries() } returns flow {
-            emit(getResultData(status = Result.Status.ERROR, message = errorMessage))
-        }
-        underTest.uiState.observeForever {}
-        underTest.fetchFlags()
-        underTest.uiState.value.run {
-            assert(this != null)
-            assert(this is FlagListViewState.Error && this.message.equals(errorMessage))
+        coEvery { countryRepository.fetchCountries() } returns getResultData(status = Result.Status.ERROR, message = errorMessage)
+        underTest.run {
+            uiState.observeForever {}
+            fetchFlags()
+            uiState.value.run {
+                assert(this != null)
+                assert(this is FlagListViewState.Error && this.message.equals(errorMessage))
+            }
         }
     }
 

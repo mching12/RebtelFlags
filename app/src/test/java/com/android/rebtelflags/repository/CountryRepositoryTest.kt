@@ -9,7 +9,6 @@ import com.android.rebtelflags.data.remote.CountryRemoteDataSource
 import com.android.rebtelflags.util.helper.ConnectivityHelper
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -43,9 +42,9 @@ class CountryRepositoryTest {
         every { connectivityHelper.isConnectedToNetwork() } returns false
         //  fetchAllCountries should then call 'local' instead of the default 'remote'
         coEvery { local.fetchAllCountries() } returns sampleEmptyData
-        underTest.fetchCountries().collectLatest {
+        underTest.fetchCountries().run {
             //  return data should be equal to mocked response
-            assert(it == sampleEmptyData)
+            assert(this == sampleEmptyData)
         }
         coVerify { local.fetchAllCountries() }
     }

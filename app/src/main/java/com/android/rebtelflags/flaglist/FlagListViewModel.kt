@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.android.rebtelflags.data.CountryRepository
 import com.android.rebtelflags.data.model.Result
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 
 class FlagListViewModel (
     private val countryRepository: CountryRepository
@@ -27,15 +26,15 @@ class FlagListViewModel (
     fun fetchFlags() {
         _uiState.value = FlagListViewState.Loading
         viewModelScope.launch {
-            countryRepository.fetchCountries().collect() {
-                when (it.status) {
+            countryRepository.fetchCountries().run {
+                when (status) {
                     Result.Status.SUCCESS -> {
                         _uiState.value =
-                            if (it.data?.isNotEmpty() == true)
-                                FlagListViewState.Loaded(it.data)
+                            if (data?.isNotEmpty() == true)
+                                FlagListViewState.Loaded(data)
                             else FlagListViewState.Empty
                     }
-                    Result.Status.ERROR -> onErrorOccurred(it.message)
+                    Result.Status.ERROR -> onErrorOccurred(message)
                     else -> {}
                 }
             }

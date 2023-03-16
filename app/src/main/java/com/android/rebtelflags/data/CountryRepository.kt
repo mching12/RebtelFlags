@@ -6,19 +6,17 @@ import com.android.rebtelflags.data.model.Result
 import com.android.rebtelflags.data.remote.CountryRemoteDataSource
 import com.android.rebtelflags.util.helper.ConnectivityHelper
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 class CountryRepository (
     private val local: CountryLocalDataSource,
     private val remote: CountryRemoteDataSource,
     private val connectivityHelper: ConnectivityHelper
 ) {
-    suspend fun fetchCountries(): Flow<Result<List<Country>>> =
-        flow {
+    suspend fun fetchCountries(): Result<List<Country>> =
+        withContext(Dispatchers.IO) {
             if(connectivityHelper.isConnectedToNetwork())
-                emit(remote.fetchAllCountries()
+                remote.fetchAllCountries()
                     .also {
                         if(it.status == Result.Status.SUCCESS) {
                             it.data?.let { countries ->
@@ -26,7 +24,6 @@ class CountryRepository (
                             }
                         }
                     }
-                )
-            else emit(local.fetchAllCountries())
-        }.flowOn(Dispatchers.IO)
+            else local.fetchAllCountries()
+        }
 }
