@@ -1,5 +1,6 @@
 package com.android.rebtelflags.ui.compose
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
@@ -15,6 +16,7 @@ import com.android.rebtelflags.util.ext.toast
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun flagListContainer(
     context: Context,
@@ -37,6 +39,7 @@ fun flagListContainer(
                     is FlagListViewState.Loaded -> gridView(context = LocalContext.current, flagList = state.data)
                     is FlagListViewState.Error -> context.toast(state.message ?: stringResource(R.string.error_generic))
                     FlagListViewState.Loading -> {}
+                    else -> {}
                 }
             }
         }
