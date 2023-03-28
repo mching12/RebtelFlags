@@ -37,9 +37,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-//    androidExtensions {
-//        experimental = true
-//    }
     buildFeatures {
         compose true
         viewBinding true
@@ -58,8 +55,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_runtime_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_runtime_version"
     implementation 'androidx.activity:activity-compose:1.7.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1'
@@ -93,6 +90,11 @@ dependencies {
     implementation "com.google.accompanist:accompanist-swiperefresh:0.23.1"
 
     //  Glide
+    /* Native glide has now support for compose.
+        However it's still missing some features that we're using (placeholder),
+        so we're keeping with landscapist for now.
+     */
+//    implementation "com.github.bumptech.glide:compose:1.0.0-alpha.1"
     implementation "com.github.skydoves:landscapist-glide:1.4.8"
 
     //  Test

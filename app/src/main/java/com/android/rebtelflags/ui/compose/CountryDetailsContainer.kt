@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 import com.android.rebtelflags.data.model.Country
 import com.android.rebtelflags.R
 
-
 @Composable
 fun countryDetailsContainer(
     country: Country?

@@ -52,4 +52,26 @@ data class Country (
     @ColumnInfo(name = "subregion")
     @Expose
     var subregion: String?
-): Parcelable
+): Parcelable {
+    companion object {
+        fun getPhilippines() =
+            Country(
+                cca2 = "PH",
+                name = Name(
+                    common = "Philippines",
+                    official = "Republic of the Philippines"
+                ),
+                ccn3 = "608",
+                cca3 = "PHL",
+                cioc = "PHI",
+                independent = true,
+                unMember = true,
+                flags = Flag(
+                    png = "https://flagcdn.com/w320/ph.png",
+                    svg = "https://flagcdn.com/ph.svg"
+                ),
+                region = "Asia",
+                subregion = "South-Eastern Asia"
+            )
+    }
+}

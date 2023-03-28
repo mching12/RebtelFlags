@@ -1,7 +1,6 @@
 package com.android.rebtelflags.ui.compose
 
 import android.content.Context
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -19,7 +18,7 @@ import com.android.rebtelflags.countrydetails.CountryDetailsActivity
 import com.android.rebtelflags.data.model.Country
 
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun gridView(context: Context,
              flagList: List<Country>
