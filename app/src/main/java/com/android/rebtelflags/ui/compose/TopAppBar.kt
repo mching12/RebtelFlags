@@ -10,7 +10,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.android.rebtelflags.ui.theme.greenColor
 
 @Composable
-fun topAppBar(
+fun TopAppBar(
     title: String
 ) {
     TopAppBar(backgroundColor = greenColor,

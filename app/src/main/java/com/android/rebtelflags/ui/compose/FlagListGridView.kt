@@ -41,7 +41,7 @@ fun gridView(context: Context,
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    flagPhoto(country = flagList[it],
+                    FlagPhoto(country = flagList[it],
                         placeholderImg = R.drawable.img_placeholder,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier

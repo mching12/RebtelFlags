@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun countryDetails(
+fun CountryDetails(
     @StringRes label: Int,
     value: String?,
 ) {

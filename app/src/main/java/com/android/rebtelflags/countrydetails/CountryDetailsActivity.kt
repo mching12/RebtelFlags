@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.android.rebtelflags.data.model.Country
-import com.android.rebtelflags.ui.compose.countryDetailsContainer
+import com.android.rebtelflags.ui.compose.CountryDetailsContainer
 import com.android.rebtelflags.ui.theme.RebtelFlagsTheme
 import com.android.rebtelflags.util.ext.intent
 
@@ -15,7 +15,7 @@ class CountryDetailsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RebtelFlagsTheme {
-                countryDetailsContainer(
+                CountryDetailsContainer(
                     country = intent.extras!!.getParcelable(EXTRA_BUNDLE)
                 )
             }

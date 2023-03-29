@@ -27,7 +27,7 @@ fun flagListContainer(
         color = MaterialTheme.colors.background
     ) {
         Scaffold(
-            topBar = { topAppBar(title = stringResource(R.string.home_screen_title)) }
+            topBar = { TopAppBar(title = stringResource(R.string.home_screen_title)) }
         ) {
             SwipeRefresh(
                 state = rememberSwipeRefreshState(isRefreshing = viewModel.uiState.observeAsState().value is FlagListViewState.Loading),

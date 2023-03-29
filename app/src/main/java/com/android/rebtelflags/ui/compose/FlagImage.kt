@@ -14,10 +14,12 @@ import com.android.rebtelflags.ui.theme.RebtelFlagsTheme
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun flagPhoto(
+fun FlagPhoto(
     country: Country?,
-    modifier: Modifier,
-    contentScale: ContentScale,
+    modifier: Modifier =
+        Modifier.fillMaxWidth()
+            .height(200.dp),
+    contentScale: ContentScale = ContentScale.FillWidth,
     @DrawableRes placeholderImg: Int,
 ) {
     GlideImage(
@@ -30,13 +32,10 @@ fun flagPhoto(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun FlagImagePreview() {
     RebtelFlagsTheme {
-        flagPhoto(
+        FlagPhoto(
             country = Country.getPhilippines(),
-            modifier = Modifier.fillMaxWidth()
-                .height(200.dp),
-            contentScale = ContentScale.Fit,
             placeholderImg = R.drawable.img_placeholder
         )
     }
