@@ -86,9 +86,6 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    //  SwipeRefresh
-    implementation "com.google.accompanist:accompanist-swiperefresh:0.23.1"
-
     //  Glide
     /* Native glide has now support for compose.
         However it's still missing some features that we're using (placeholder),

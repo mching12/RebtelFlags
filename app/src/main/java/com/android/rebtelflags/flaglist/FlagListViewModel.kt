@@ -19,6 +19,8 @@ class FlagListViewModel (
         fetchFlags()
     }
 
+    fun isLoading() = _uiState.value is FlagListViewState.Loading
+
     private fun onErrorOccurred(error: String?) {
         _uiState.value = FlagListViewState.Error(error)
     }
