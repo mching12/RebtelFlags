@@ -1,6 +1,6 @@
 package com.android.rebtelflags.flaglist
 
-import androidx.lifecycle.LiveData
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,26 +12,48 @@ class FlagListViewModel (
     private val countryRepository: CountryRepository
 ) : ViewModel() {
 
-    private var _uiState = MutableLiveData<FlagListViewState>(FlagListViewState.Empty)
-    var uiState: LiveData<FlagListViewState> = _uiState
+//    A.
+//    If exposed stated is only being consumed by Composables, then it would be better
+//    to simply use State:
+//    var uiState = mutableStateOf(FlagListViewState.Empty)
+//        private set
+//    However, I find this approach a bit limited as it limits your usage
+//    in consuming the UI state to only compose
+
+//    B.
+//    Alternatively, if source is a hot flow that isn't doing heavy work (like observing gps),
+//    then it could be better to use Flow and write to State:
+//
+//    var uiState by mutableStateOf(FlagListViewState.Loading)
+//        private set
+//    init {
+//        viewModelScope.launch {
+//            <coldFlowSource>
+//                .onEach { state = it }
+//                .launchIn(viewModelScope)
+//        }
+//    }
+
+    var uiState = MutableLiveData<FlagListViewState>(FlagListViewState.Empty)
+        private set
 
     init {
         fetchFlags()
     }
 
-    fun isLoading() = _uiState.value is FlagListViewState.Loading
+    fun isLoading() = uiState.value is FlagListViewState.Loading
 
     private fun onErrorOccurred(error: String?) {
-        _uiState.value = FlagListViewState.Error(error)
+        uiState.value = FlagListViewState.Error(error)
     }
 
     fun fetchFlags() {
-        _uiState.value = FlagListViewState.Loading
+        uiState.value = FlagListViewState.Loading
         viewModelScope.launch {
             countryRepository.fetchCountries().run {
                 when (status) {
                     Result.Status.SUCCESS -> {
-                        _uiState.value =
+                        uiState.value =
                             if (data?.isNotEmpty() == true)
                                 FlagListViewState.Loaded(data)
                             else FlagListViewState.Empty

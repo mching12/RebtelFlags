@@ -4,60 +4,40 @@ import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.android.rebtelflags.R
 import com.android.rebtelflags.countrydetails.CountryDetailsActivity
 import com.android.rebtelflags.data.model.Country
+import com.android.rebtelflags.ui.theme.RebtelFlagsTheme
 
-
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun gridView(context: Context,
-             flagList: List<Country>
+fun CountryGridView(context: Context,
+                    flagList: List<Country>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         modifier = Modifier.padding(0.dp)
     ) {
         items(flagList.size) {
-            Card(onClick = {
-                    CountryDetailsActivity.launch(context, flagList[it])
-                },
-                modifier = Modifier.padding(8.dp),
-                elevation = 6.dp
-            ) {
-                Column(
-                    Modifier
-                        .fillMaxSize()
-                        .padding(5.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    FlagPhoto(country = flagList[it],
-                        placeholderImg = R.drawable.img_placeholder,
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier
-                            .height(60.dp)
-                            .width(60.dp)
-                            .padding(5.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(9.dp))
-
-                    Text(text = flagList[it].name?.common ?: "",
-                        modifier = Modifier.padding(4.dp),
-                        color = Color.Black
-                    )
-                }
-            }
+            val country = flagList[it]
+            CountryGridItem (
+                country = country,
+                action = { CountryDetailsActivity.launch(context, country) }
+            )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun CountryGridViewPreview() {
+    RebtelFlagsTheme {
+        CountryGridView(
+            context = LocalContext.current,
+            flagList = Country.getCountryList()
+        )
     }
 }

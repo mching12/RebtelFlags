@@ -16,17 +16,15 @@ import com.skydoves.landscapist.glide.GlideImage
 @Composable
 fun FlagPhoto(
     country: Country?,
-    modifier: Modifier =
-        Modifier.fillMaxWidth()
-            .height(200.dp),
+    modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.FillWidth,
-    @DrawableRes placeholderImg: Int,
+    @DrawableRes placeholderImg: Int = R.drawable.img_placeholder,
 ) {
     GlideImage(
         imageModel = country?.flags?.png,
         contentScale = contentScale,
         modifier = modifier,
-        previewPlaceholder = placeholderImg,
+        previewPlaceholder = placeholderImg
     )
 }
 
@@ -36,7 +34,9 @@ fun FlagImagePreview() {
     RebtelFlagsTheme {
         FlagPhoto(
             country = Country.getPhilippines(),
-            placeholderImg = R.drawable.img_placeholder
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
         )
     }
 }

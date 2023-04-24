@@ -47,16 +47,14 @@ fun FlagListContainer(
                     .pullRefresh(pullRefreshState)
             ) {
                 //  handle UI states here
+                //  observeAsState() is an livedata extension that makes it compatible with compose' observable
                 when (val state = viewModel.uiState.observeAsState().value) {
-                    is FlagListViewState.Empty -> context.toast(stringResource(R.string.message_empty_data))
-                    is FlagListViewState.Loaded -> gridView(
-                        context = LocalContext.current,
-                        flagList = state.data
-                    )
-                    is FlagListViewState.Error -> context.toast(
-                        state.message ?: stringResource(R.string.error_generic)
-                    )
-                    FlagListViewState.Loading -> {}
+                    is FlagListViewState.Empty ->
+                        context.toast(stringResource(R.string.message_empty_data))
+                    is FlagListViewState.Loaded ->
+                        CountryGridView(context = LocalContext.current, flagList = state.data)
+                    is FlagListViewState.Error ->
+                        context.toast(state.message ?: stringResource(R.string.error_generic))
                     else -> {}
                 }
 

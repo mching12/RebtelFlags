@@ -73,5 +73,14 @@ data class Country (
                 region = "Asia",
                 subregion = "South-Eastern Asia"
             )
+
+        fun getCountryList(): List<Country> {
+            val list = mutableListOf<Country>()
+            for (i in 0..20) {
+                list.add(getPhilippines())
+            }
+            return list
+        }
+
     }
 }
