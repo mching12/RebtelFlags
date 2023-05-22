@@ -15,7 +15,7 @@ class CountryRemoteDataSource (
             defaultErrorMessage = "Error fetching Country list remotely"
         )
 
-    suspend fun <T> getResponse(
+    private suspend fun <T> getResponse(
         request: suspend () -> Response<T>,
         defaultErrorMessage: String = ERROR_DEFAULT
     ): Result<T> {

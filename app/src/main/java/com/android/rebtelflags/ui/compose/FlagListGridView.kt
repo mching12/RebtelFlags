@@ -14,8 +14,9 @@ import com.android.rebtelflags.data.model.Country
 import com.android.rebtelflags.ui.theme.RebtelFlagsTheme
 
 @Composable
-fun CountryGridView(context: Context,
-                    flagList: List<Country>
+fun CountryGridView(
+    context: Context,
+    flagList: List<Country>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),

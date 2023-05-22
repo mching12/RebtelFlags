@@ -1,6 +1,5 @@
 package com.android.rebtelflags.flaglist
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -47,7 +46,13 @@ class FlagListViewModel (
         uiState.value = FlagListViewState.Error(error)
     }
 
-    fun fetchFlags() {
+    fun onEvent(event: FlagListEvent) {
+        when(event) {
+            FlagListEvent.Refresh -> fetchFlags()
+        }
+    }
+
+    private fun fetchFlags() {
         uiState.value = FlagListViewState.Loading
         viewModelScope.launch {
             countryRepository.fetchCountries().run {

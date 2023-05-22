@@ -3,6 +3,7 @@ package com.android.rebtelflags.flaglist
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.livedata.observeAsState
 import com.android.rebtelflags.ui.compose.FlagListContainer
 import com.android.rebtelflags.ui.theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +18,9 @@ class FlagListActivity : ComponentActivity() {
             RebtelFlagsTheme {
                 FlagListContainer(
                     context = this@FlagListActivity,
-                    viewModel = viewModel
+                    viewState = viewModel.uiState.observeAsState().value,
+                    isLoading = viewModel.isLoading(),
+                    onEvent = viewModel::onEvent
                 )
             }
         }

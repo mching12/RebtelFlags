@@ -1,7 +1,6 @@
 package com.android.rebtelflags.data.model
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -13,7 +12,6 @@ import com.google.gson.annotations.Expose
 data class Country (
 
     @PrimaryKey(autoGenerate = false)
-    @NonNull
     @Expose
     var cca2: String,
 
